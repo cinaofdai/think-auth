@@ -2,7 +2,35 @@
 The ThinkPHP5 Auth and identity
 
 ## 安装
-> composer require dh2y/think-auth
+
+### 一、执行命令安装
+```
+composer require dh2y/think-auth
+```
+
+或者
+
+### 二、require安装
+```
+"require": {
+        "dh2y/think-auth":"*"
+},
+```
+
+或者
+###  三、autoload psr-4标准安装
+```
+   a) 进入vendor/dh2y目录 (没有dh2y目录 mkdir dh2y)
+   b) git clone 
+   c) 修改 git clone下来的项目名称为think-auth
+   d) 添加下面配置
+   "autoload": {
+        "psr-4": {
+            "think\\auth\\": "vendor/dh2y/think-auth/src"
+        }
+    },
+    e) php composer.phar update
+```
 
 ## 配置
 ### 公共配置
