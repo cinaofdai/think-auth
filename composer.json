@@ -1,8 +1,7 @@
 {
     "name": "dh2y/think-auth",
     "description": "auth and identity for thinkphp5",
-    "homepage": "https://github.com/cinaofdai/think-auth",
-    "license": "Apache-2.0",
+    "license": "MIT",
     "authors": [
         {
             "name": "dh2y",
