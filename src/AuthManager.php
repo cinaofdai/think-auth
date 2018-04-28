@@ -79,6 +79,39 @@ class AuthManager
     }
 
     /**
+     * 获取权限菜单
+     * @param $uid
+     * @return array
+     */
+    public function getAuthMenu($uid){
+        $auth = Auth::instance();
+        $list = $auth->getAuthList($uid,1);
+        $menu = Db::name('menu')->order('sort','desc')->select();
+
+        //将菜单id作为数组key
+        $keys = array_column($menu,'id');
+        $menu = array_combine($keys,$menu);
+
+        //返回有权限的菜单
+        $menuList = []; $pids = [];
+        foreach($menu as $key=>$value){
+            $link = trim(strtolower($value['link']),DS);
+            if(in_array($link,$list)){
+                if($value['pid']!=0){
+                    if(!in_array($value['pid'],$pids)){
+                        $menuList[] = $menu[$value['pid']];
+                        $pids[] = $value['pid'];
+                    }
+                }
+                $menuList[] =  $value;
+            }
+        }
+
+        $menus = Data::channelLevel($menuList);
+        return $menus;
+    }
+
+    /**
      * 添加规则
      * @param $data
      * @return mixed

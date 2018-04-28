@@ -106,10 +106,9 @@ class Auth
     }
 
     /**
-     * 初始化
-     * @access public
-     * @param array $options 参数
-     * @return \think\Request
+     *
+     * @param array $options
+     * @return object|static
      */
     public static function instance($options = [])
     {
@@ -206,7 +205,7 @@ class Auth
      * @param integer $type
      * @return array
      */
-    protected function getAuthList($uid, $type)
+    public function getAuthList($uid, $type)
     {
         static $_authList = []; //保存用户验证通过的权限列表
         $t = implode(',', (array)$type);
