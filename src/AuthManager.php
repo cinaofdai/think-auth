@@ -9,7 +9,7 @@ namespace think\auth;
 
 
 use think\auth\helper\Data;
-use think\Config;
+use think\facade\Config;
 use think\Db;
 use think\Validate;
 

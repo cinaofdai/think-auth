@@ -11,9 +11,16 @@ composer require dh2y/think-auth
 或者
 
 ### 二、require安装
+#### 2-1、 5.0安装
 ```
 "require": {
-        "dh2y/think-auth":"*"
+        "dh2y/think-auth":"1.*"
+},
+```
+#### 2-2、 5.1安装
+```
+"require": {
+        "dh2y/think-auth":"2.*"
 },
 ```
 
