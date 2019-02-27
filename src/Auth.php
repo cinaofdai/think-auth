@@ -10,7 +10,7 @@ namespace think\auth;
 use think\Db;
 use think\facade\Config;
 use think\Session;
-use think\Request;
+use think\facade\Request;
 use think\Loader;
 
 /**
