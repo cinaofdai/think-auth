@@ -11,7 +11,7 @@ namespace think\auth;
 use think\auth\helper\Data;
 use think\facade\Config;
 use think\Db;
-use think\Validate;
+use think\facade\Validate;
 
 class AuthManager
 {
@@ -137,14 +137,24 @@ class AuthManager
      */
     private function storeRule($data,$scene='insert'){
         $rule = [
-            ['name','require|unique:'.$this->config['auth_rule'],'规则标识不能为空|规则名称要唯一'],
-            ['title','require|chsAlphaNum','规则名称不能为空|规则名称只能汉字、字母和数字'],
-            ['status','require|in:1,0','状态不能为空|非法状态数据'],
-            ['mid','checkMid:1','请选择所属模块,所属模块为二级菜单']
+            'name'=>'require|unique:'.$this->config['auth_rule'],
+            'title'=>'require|chsAlphaNum',
+            'status'=>'require|in:1,0',
+            'mid'=>'checkMid:1',
 
         ];
 
-        $validate = new Validate($rule);
+        $msg = [
+            'name.require' => '规则标识不能为空',
+            'name.unique'     => '规则名称要唯一',
+            'title.require' => '规则名称不能为空',
+            'title.chsAlphaNum'     => '规则名称只能汉字、字母和数字',
+            'status.require'   => '状态不能为空',
+            'status.in'  => '非法状态数据',
+            'mid.checkMid'  => '请选择所属模块,所属模块为二级菜单',
+        ];
+
+        $validate =  Validate::make($rule,$msg);
 
         //扩展规则,菜单模块 是否在菜单表内
         $validate->extend('checkMid', function ($value, $rule) {
@@ -222,17 +232,25 @@ class AuthManager
      */
     private function storeGroup($data,$scene='insert'){
         $rule = [
-            ['title','require|chsAlpha','角色名称不能为空|角色名称只能汉字字母'],
-            ['status','require|in:1,0','状态不能为空|非法状态数据'],
-            ['rules','checkRules:1','权限规则非法']
+            'title'=>'require|chsAlpha',
+            'status'=>'require|in:1,0',
+            'rules'=>'checkRules:1',
         ];
-        $validate = new Validate($rule);
+        $msg = [
+            'title.require' => '角色名称不能为空',
+            'title.chsAlpha'     => '角色名称只能汉字字母',
+            'status.require'   => '状态不能为空',
+            'status.in'  => '非法状态数据',
+            'rules.checkRules'  => '权限规则非法',
+        ];
+
+        $validate =  Validate::make($rule,$msg);
 
         //扩展规则,规则是否在数据库内
         $validate->extend('checkRules', function ($value, $rule) {
             if(!is_array($value)) return false;
             $count = Db::name($this->config['auth_rule'])->where('id','in',$value)->count();
-            return  ($count==count($value))?true:false;
+            return  ($count<=count($value))?true:false;
         });
         $result   = $validate->check($data);
 
@@ -272,11 +290,18 @@ class AuthManager
      */
     protected function storeMenu($data,$scene='insert'){
         $rule = [
-            ['pid','checkPid:1','请选择合法的父级菜单'],
-            ['title','require|chs','菜单名称不能为空|菜单只能为中文'],
-            ['sort','number','请输入整数排序'],
+            'pid'=>'checkPid:1',
+            'title'=>'require|chs',
+            'sort'=>'number',
         ];
-        $validate = new Validate($rule);
+        $msg = [
+            'pid.checkPid' => '请选择合法的父级菜单',
+            'title.require'     => '菜单名称不能为空',
+            'title.chs'   => '菜单只能为中文',
+            'sort.number'  => '请输入整数排序',
+        ];
+
+        $validate =  Validate::make($rule,$msg);
 
         //扩展规则,规则是否在数据库内
         $validate->extend('checkPid', function ($value, $rule) {

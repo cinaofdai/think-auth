@@ -9,7 +9,7 @@ namespace think\auth;
 
 use think\Db;
 use think\facade\Config;
-use think\Session;
+use think\facade\Session;
 use think\facade\Request;
 use think\Loader;
 
@@ -88,7 +88,8 @@ class Auth
         'auth_group' => 'auth_group', // 用户组数据表名
         'auth_group_access' => 'auth_group_access', // 用户-用户组关系表
         'auth_rule' => 'auth_rule', // 权限规则表
-        'auth_user' => 'member', // 用户信息表
+        'auth_user' => 'admin', // 用户信息表
+        'menu' =>'menu'
     ];
 
     /**
@@ -232,7 +233,12 @@ class Auth
             'status' => 1,
         );
         //读取用户组所有权限规则
-        $rules = Db::name($this->config['auth_rule'])->where($map)->field('condition,name')->select();
+        $rules = Db::name($this->config['auth_rule'])
+            ->where('id','in',$ids)
+            ->where('type',$type)
+            ->where('status',1)
+            ->field('condition,name')->select();
+
         //循环规则，判断结果。
         $authList = []; //
         foreach ($rules as $rule) {
