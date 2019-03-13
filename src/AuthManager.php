@@ -41,7 +41,7 @@ class AuthManager
     private function __construct($options)
     {
         //可设置配置项 auth, 此配置项为数组。
-        if ($auth = Config::get('auth')) {
+        if ($auth = Config::get('auth.')) {
             $this->config = array_merge($this->config, $auth);
         }
     }
