@@ -291,13 +291,13 @@ class AuthManager
     protected function storeMenu($data,$scene='insert'){
         $rule = [
             'pid'=>'checkPid:1',
-            'title'=>'require|alphaDash',
+            'title'=>'require|chsAlpha',
             'sort'=>'number',
         ];
         $msg = [
             'pid.checkPid' => '请选择合法的父级菜单',
             'title.require'     => '菜单名称不能为空',
-            'title.alphaDash'   => '菜单只能为中英文数字下划线',
+            'title.chsAlpha'   => '菜单只能为中英文数字下划线',
             'sort.number'  => '请输入整数排序',
         ];
 

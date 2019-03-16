@@ -3,7 +3,7 @@
     "description": "auth and identity for thinkphp5",
     "license": "MIT",
     "minimum-stability": "stable",
-    "version": "2.3.3",
+    "version": "2.3.4",
     "authors": [
         {
             "name": "dh2y",
