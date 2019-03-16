@@ -291,7 +291,7 @@ class AuthManager
     protected function storeMenu($data,$scene='insert'){
         $rule = [
             'pid'=>'checkPid:1',
-            'title'=>'require|chs',
+            'title'=>'require|alphaDash',
             'sort'=>'number',
         ];
         $msg = [
