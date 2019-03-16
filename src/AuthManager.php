@@ -297,7 +297,7 @@ class AuthManager
         $msg = [
             'pid.checkPid' => '请选择合法的父级菜单',
             'title.require'     => '菜单名称不能为空',
-            'title.chs'   => '菜单只能为中文',
+            'title.alphaDash'   => '菜单只能为中英文数字下划线',
             'sort.number'  => '请输入整数排序',
         ];
 
