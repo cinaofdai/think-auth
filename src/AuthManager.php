@@ -38,12 +38,14 @@ class AuthManager
      * AuthManager constructor.
      * @param $options
      */
-    private function __construct($options)
+    public function __construct()
     {
-        //可设置配置项 auth, 此配置项为数组。
+         //可设置配置项 auth, 此配置项为数组。
         if ($auth = Config::get('auth.')) {
             $this->config = array_merge($this->config, $auth);
         }
+        // 初始化request
+        $this->request = Request::instance();
     }
 
     /**
