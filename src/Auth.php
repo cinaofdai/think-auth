@@ -235,7 +235,7 @@ class Auth
         //读取用户组所有权限规则
         $rules = Db::name($this->config['auth_rule'])
             ->where('id','in',$ids)
-            ->where('type',$type)
+//             ->where('type',$type)
             ->where('status',1)
             ->field('condition,name')->select();
 
