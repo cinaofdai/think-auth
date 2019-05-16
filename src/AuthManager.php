@@ -1,8 +1,6 @@
 <?php
 /**
- * Created by dailinlin.
- * Date: 2017/10/10 15:21
- * for: 权限管理操作类
+ * 权限管理操作类
  */
 
 namespace think\auth;
@@ -30,7 +28,6 @@ class AuthManager
         'auth_group_access' => 'auth_group_access', // 用户-用户组关系表
         'auth_rule' => 'auth_rule', // 权限规则表
         'auth_user' => 'admin', // 用户信息表
-        'menu' =>'menu'
     ];
 
     /**
@@ -78,38 +75,6 @@ class AuthManager
         throw new \Exception('禁止克隆');
     }
 
-    /**
-     * 获取权限菜单
-     * @param $uid
-     * @return array
-     */
-    public function getAuthMenu($uid){
-        $auth = Auth::instance();
-        $list = $auth->getAuthList($uid,1);
-        $menu = Db::name('menu')->order('sort','desc')->select();
-
-        //将菜单id作为数组key
-        $keys = array_column($menu,'id');
-        $menu = array_combine($keys,$menu);
-
-        //返回有权限的菜单
-        $menuList = []; $pids = [];
-        foreach($menu as $key=>$value){
-            $link = trim(strtolower($value['link']),DIRECTORY_SEPARATOR);
-            if(in_array($link,$list)){
-                if($value['pid']!=0){
-                    if(!in_array($value['pid'],$pids)){
-                        $menuList[] = $menu[$value['pid']];
-                        $pids[] = $value['pid'];
-                    }
-                }
-                $menuList[] =  $value;
-            }
-        }
-
-        $menus = Data::channelLevel($menuList);
-        return $menus;
-    }
 
     /**
      * 添加规则
@@ -140,7 +105,7 @@ class AuthManager
             'name'=>'require|unique:'.$this->config['auth_rule'],
             'title'=>'require|chsAlphaNum',
             'status'=>'require|in:1,0',
-            'mid'=>'checkMid:1',
+          
 
         ];
 
@@ -151,16 +116,10 @@ class AuthManager
             'title.chsAlphaNum'     => '规则名称只能汉字、字母和数字',
             'status.require'   => '状态不能为空',
             'status.in'  => '非法状态数据',
-            'mid.checkMid'  => '请选择所属模块,所属模块为二级菜单',
+          
         ];
 
         $validate =  Validate::make($rule,$msg);
-
-        //扩展规则,菜单模块 是否在菜单表内
-        $validate->extend('checkMid', function ($value, $rule) {
-            $menu = Db::name($this->config['menu'])->where('pid','neq',0)->find($value);
-            return  isset($menu)?true:false;
-        });
         $result   = $validate->check($data);
         if($result){
             return Db::name($this->config['auth_rule'])->$scene($data);
@@ -264,62 +223,5 @@ class AuthManager
         }
     }
 
-    /**
-     * 添加菜单
-     * @param $data
-     * @return mixed
-     */
-    public function insertMenu($data){
-        return self::storeMenu($data,'insert');
-    }
-
-    /**
-     * 更新菜单
-     * @param $data
-     * @return mixed
-     */
-    public function updateMenu($data){
-        return self::storeMenu($data,'update');
-    }
-
-    /**
-     *  菜单增改
-     * @param $data
-     * @param string $scene
-     * @return mixed
-     */
-    protected function storeMenu($data,$scene='insert'){
-        $rule = [
-            'pid'=>'checkPid:1',
-            'title'=>'require|chsAlpha',
-            'sort'=>'number',
-        ];
-        $msg = [
-            'pid.checkPid' => '请选择合法的父级菜单',
-            'title.require'     => '菜单名称不能为空',
-            'title.chsAlpha'   => '菜单只能为中英文数字下划线',
-            'sort.number'  => '请输入整数排序',
-        ];
-
-        $validate =  Validate::make($rule,$msg);
-
-        //扩展规则,规则是否在数据库内
-        $validate->extend('checkPid', function ($value, $rule) {
-            if($value==0){
-                return true;
-            }
-            $p_menu = Db::name($this->config['menu'])->find($value);
-            return  $p_menu?true:false;
-        });
-        $result   = $validate->check($data);
-
-        //将规则字段已字符串存数据库中
-        if($result){
-            return Db::name($this->config['menu'])->$scene($data);
-        }else{
-            $this->setError($validate->getError());
-            return false;
-        }
-    }
 
 }
