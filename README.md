@@ -1,4 +1,4 @@
-# think-addons
+# think-Auth
 The ThinkPHP5 Auth and identity
 
 ## 安装
