@@ -1,17 +1,17 @@
 {
-    "name": "dh2y/think-auth",
+    "name": "FlameMida/think-auth",
     "description": "auth and identity for thinkphp5",
     "license": "MIT",
     "minimum-stability": "stable",
-    "version": "2.3.4",
+    "version": "0.0.1",
     "authors": [
         {
-            "name": "dh2y",
-            "email": "xiaodai54_long@163.com"
+            "name": "FlameMida",
+            "email": "sweet.sakura@qq.com"
         }
     ],
     "support": {
-        "issues": "https://github.com/cinaofdai/think-auth/issues"
+        "issues": "https://github.com/FlameMida/think-auth/"
     },
     "require": {
         "php": ">=5.4.0"
