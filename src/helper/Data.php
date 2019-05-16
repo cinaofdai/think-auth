@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by dh2y.
- * bolg: http://blog.csdn.net/sinat_22878395
- * Date: 2017/7/4 16:54
- * functional:  数据处理类
+ * 数据处理类
  */
 namespace think\auth\helper;
 
