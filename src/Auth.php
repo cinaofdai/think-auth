@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by dh2y.
- * Email：xiaodai54_long@163.com
- * Date: 2017/9/26 9:56
- * for: auth管理
+ * auth管理
  */
 namespace think\auth;
 
