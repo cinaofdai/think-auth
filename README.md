@@ -5,35 +5,18 @@ The ThinkPHP5 Auth and identity
 
 ### 一、执行命令安装
 ```
-composer require dh2y/think-auth
+composer require FlameMida/think-auth
 ```
 
-或者
-
-### 二、require安装
-#### 2-1、 5.0安装
+###  二、autoload psr-4标准安装
 ```
-"require": {
-        "dh2y/think-auth":"1.*"
-},
-```
-#### 2-2、 5.1安装
-```
-"require": {
-        "dh2y/think-auth":"2.*"
-},
-```
-
-或者
-###  三、autoload psr-4标准安装
-```
-   a) 进入vendor/dh2y目录 (没有dh2y目录 mkdir dh2y)
+   a) 进入vendor/FlameMida目录 (没有FlameMida目录 mkdir FlameMida)
    b) git clone 
    c) 修改 git clone下来的项目名称为think-auth
    d) 添加下面配置
    "autoload": {
         "psr-4": {
-            "think\\auth\\": "vendor/dh2y/think-auth/src"
+            "think\\auth\\": "vendor/FlameMida/think-auth/src"
         }
     },
     e) php composer.phar update
@@ -50,7 +33,6 @@ composer require dh2y/think-auth
     'auth_group_access' => 'auth_group_access', // 用户-用户组关系表
     'auth_rule' => 'auth_rule', // 权限规则表
     'auth_user' => 'admin', // 用户信息表
-    'menu' =>'menu'
 ],
 ```
 
@@ -98,15 +80,7 @@ CREATE TABLE `think_auth_group_access` (
      KEY `group_id` (`group_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE `think_auth__menu` (
-  `id` smallint(6) NOT NULL AUTO_INCREMENT,
-  `pid` smallint(6) NOT NULL DEFAULT '0',
-  `title` varchar(20) NOT NULL COMMENT '菜单名称',
-  `link` varchar(50) DEFAULT NULL COMMENT '链接',
-  `icon` varchar(50) DEFAULT NULL COMMENT '字体图标',
-  `sort` smallint(6) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 COMMENT='菜单表';
+
 ```
 
 ## 原理
