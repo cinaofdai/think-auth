@@ -95,7 +95,7 @@ class AuthManager
         //返回有权限的菜单
         $menuList = []; $pids = [];
         foreach($menu as $key=>$value){
-            $link = trim(strtolower($value['link']),DIRECTORY_SEPARATOR);
+            $link = trim(strtolower($value['link']),'/');
             if(in_array($link,$list)){
                 if($value['pid']!=0){
                     if(!in_array($value['pid'],$pids)){
